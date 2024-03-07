@@ -4,12 +4,12 @@ renderTodoList();
 function renderTodoList() {
     let todoListHTML = '';
     for(let i = 0; i < todoList.length; i++){
-        const todoObject = todoList[i];
-        const { name, dueDate} = todoObject;
+        const { name, dueDate, priority, status } = todoList[i];
         const html =`
-        
             <div>${name}</div>
             <div>${dueDate}</div>
+            <div>${priority}</div>
+            <div>${status}</div>
             <button class="delete-todo-button js-delete-button">Delete</button>
         `;
         todoListHTML += html;
@@ -21,18 +21,19 @@ function renderTodoList() {
             renderTodoList();
         })
     })
-    
 }
             
 function addTodo() {
-    const inputElement = document.querySelector('.js-name-input');
-    const name = inputElement.value;
+    const name = document.querySelector('.js-name-input').value;
+    const dueDate = document.querySelector('.js-dueDate-input').value;
+    const priority = document.querySelector('.js-priority-input').value;
+    const status = document.querySelector('.js-status-input').value;
 
-    const dateInputElement = document.querySelector('.js-dueDate-input');
-    const dueDate = dateInputElement.value;
-
-    todoList.push({name, dueDate});
-    inputElement.value = '';
+    todoList.push({name, dueDate, priority, status});
+    document.querySelector('.js-name-input').value = '';
+    document.querySelector('.js-dueDate-input').value = '';
+    document.querySelector('.js-priority-input').value = '';
+    document.querySelector('.js-status-input').value = '';
     renderTodoList();
     saveToStorage();
 }            
