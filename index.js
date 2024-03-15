@@ -3,8 +3,12 @@ renderTodoList();
 
 function renderTodoList() {
     let todoListHTML = '';
-    for(let i = 0; i < todoList.length; i++){
-        const { name, dueDate, priority, status } = todoList[i];
+    const sortedTodoList = [...todoList];
+
+    sortedTodoList.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+
+    for(let i = 0; i < sortedTodoList.length; i++){
+        const { name, dueDate, priority, status } = sortedTodoList[i];
         const html =`
             <div>${name}</div>
             <div>${dueDate}</div>
