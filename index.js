@@ -1,11 +1,12 @@
 const todoList = JSON.parse(localStorage.getItem('todoList')) || [];
+let sortFunction = sortByDueDate;
 renderTodoList();
 
 function renderTodoList() {
     let todoListHTML = '';
     const sortedTodoList = [...todoList];
 
-    sortedTodoList.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+    sortedTodoList.sort(sortFunction);
 
     for(let i = 0; i < sortedTodoList.length; i++){
         const { name, dueDate, priority, status } = sortedTodoList[i];
@@ -40,12 +41,43 @@ function addTodo() {
     document.querySelector('.js-status-input').value = '';
     renderTodoList();
     saveToStorage();
-}            
+}   
+
+function sortByDueDate(a, b) {
+    return new Date(a.dueDate) - new Date(b.dueDate);
+}
+
+function sortByName(a, b) {
+    return a.name.localeCompare(b.name);
+}
+
+function sortByStatus(a, b) {
+    return a.status.localeCompare(b.status);
+}
+
+function sortByPriority(a, b) {
+    return a.priority - b.priority;
+}
+
+document.querySelector('.js-sort-input').addEventListener('change', function(e) {
+    if (e.target.value === 'dueDate') {
+        sortFunction = sortByDueDate;
+    } 
+    else if (e.target.value === 'name') {
+        sortFunction = sortByName;
+    } 
+    else if (e.target.value === 'status') {
+        sortFunction = sortByStatus;
+    } 
+    else if (e.target.value === 'priority') {
+        sortFunction = sortByPriority;
+    }
+    renderTodoList();
+});
 
 function saveToStorage(){
     localStorage.setItem('todoList', JSON.stringify(todoList));
 }
-
 
 document.querySelector('.js-add-button')
     .addEventListener('click', () => {
