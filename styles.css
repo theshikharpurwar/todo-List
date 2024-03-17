@@ -33,6 +33,15 @@ body {
     align-items: center;
 }
 
+.sort-input{
+    font-size: 15px;
+    padding: 6px;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    margin-bottom: 18px;
+}
+
 .priority-input,
 .status-input {
     font-size: 15px;

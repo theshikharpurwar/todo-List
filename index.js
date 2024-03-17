@@ -26,6 +26,7 @@ function renderTodoList() {
             renderTodoList();
         })
     })
+    document.querySelector('.js-sort-input').style.display = todoList.length ? 'block' : 'none';
 }
             
 function addTodo() {
@@ -41,6 +42,7 @@ function addTodo() {
     document.querySelector('.js-status-input').value = '';
     renderTodoList();
     saveToStorage();
+    document.querySelector('.js-sort-input').style.display = 'block';
 }   
 
 function sortByDueDate(a, b) {
