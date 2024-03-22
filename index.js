@@ -14,7 +14,13 @@ function renderTodoList() {
             <div>${name}</div>
             <div>${dueDate}</div>
             <div>${priority}</div>
-            <div>${status}</div>
+            <div>
+                <select class="js-status-input status-input" data-index="${i}">
+                    <option value="Not Started" ${status === 'Pending' ? 'selected' : ''}>Pending</option>
+                    <option value="In Progress" ${status === 'In Progress' ? 'selected' : ''}>In Progress</option>
+                    <option value="Completed" ${status === 'Completed' ? 'selected' : ''}>Completed</option>
+                </select>
+            </div>
             <button class="delete-todo-button js-delete-button">Delete</button>
         `;
         todoListHTML += html;
@@ -27,6 +33,13 @@ function renderTodoList() {
         })
     })
     document.querySelector('.js-sort-input').style.display = todoList.length ? 'block' : 'none';
+    document.querySelectorAll('.js-status-input').forEach((statusInput) => {
+        statusInput.addEventListener('change', (e) => {
+            const index = e.target.getAttribute('data-index');
+            todoList[index].status = e.target.value;
+            renderTodoList();
+        });
+    });
 }
             
 function addTodo() {
