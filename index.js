@@ -13,7 +13,13 @@ function renderTodoList() {
         const html =`
             <div>${name}</div>
             <div>${dueDate}</div>
-            <div>${priority}</div>
+            <div>
+                <select class="js-priority-input priority-input" data-index="${i}">
+                    <option value="1" ${priority === 'High' ? 'selected' : ''}>High</option>
+                    <option value="2" ${priority === 'Medium' ? 'selected' : ''}>Medium</option>
+                    <option value="3" ${priority === 'Low' ? 'selected' : ''}>Low</option>
+                </select>
+            </div>
             <div>
                 <select class="js-status-input status-input" data-index="${i}">
                     <option value="Not Started" ${status === 'Pending' ? 'selected' : ''}>Pending</option>
@@ -33,6 +39,13 @@ function renderTodoList() {
         })
     })
     document.querySelector('.js-sort-input').style.display = todoList.length ? 'block' : 'none';
+    document.querySelectorAll('.js-priority-input').forEach((priorityInput) => {
+        priorityInput.addEventListener('change', (e) => {
+            const index = e.target.getAttribute('data-index');
+            todoList[index].priority = e.target.value;
+            renderTodoList();
+        });
+    });
     document.querySelectorAll('.js-status-input').forEach((statusInput) => {
         statusInput.addEventListener('change', (e) => {
             const index = e.target.getAttribute('data-index');
