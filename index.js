@@ -62,7 +62,7 @@ function sortByPriority(a, b) {
 }
 
 function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+    return string.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 }
 
 document.querySelector('.js-sort-input').addEventListener('change', function(e) {
