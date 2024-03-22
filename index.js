@@ -30,7 +30,7 @@ function renderTodoList() {
 }
             
 function addTodo() {
-    const name = document.querySelector('.js-name-input').value;
+    const name = capitalizeFirstLetter(document.querySelector('.js-name-input').value);
     const dueDate = document.querySelector('.js-dueDate-input').value;
     const priority = document.querySelector('.js-priority-input').value;
     const status = document.querySelector('.js-status-input').value;
@@ -59,6 +59,10 @@ function sortByStatus(a, b) {
 
 function sortByPriority(a, b) {
     return a.priority - b.priority;
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 document.querySelector('.js-sort-input').addEventListener('change', function(e) {
